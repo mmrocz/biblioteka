@@ -20,10 +20,12 @@ def get_book(book_id):
 def create_book():
     if not request.json or not 'title' in request.json:
         abort(400)
+
     book = {
+        'author': request.json.get('author', 'None'),
         'id': biblioteka.all()[-1]['id'] + 1,
         'title': request.json['title'],
-        'year': request.json.get('description', ""),
+        'year': request.json.get('year', 0),
         'read': False
     }
     biblioteka.create(book)
@@ -43,6 +45,8 @@ def not_found(error):
 @app.errorhandler(400)
 def bad_request(error):
     return make_response(jsonify({'error': 'Bad request', 'status_code': 400}), 400)
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

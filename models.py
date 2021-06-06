@@ -5,8 +5,8 @@ class Biblioteka:
     def __init__(self):
         try:
             with open("biblioteka.json", "r") as f:
-                sortuj = json.load(f)
-                self.biblioteka = sorted(sortuj, key=lambda p: p['year'])
+                z = json.load(f)
+                self.biblioteka = sorted(z, key=lambda p: p['year'])
         except FileNotFoundError:
             self.biblioteka = []
 
